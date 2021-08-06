@@ -16,6 +16,23 @@ class _SignInContainerState extends State<SignInContainer> {
     'email': '',
     'password': '',
   };
+
+  void _submit(BuildContext context) {
+    if (!_formKey.currentState!.validate()) {
+      // INVALID
+      return;
+    }
+    _formKey.currentState!.save();
+    _onFormSubmitted(context);
+  }
+  
+  void _onFormSubmitted(BuildContext context) {
+    email:
+    _authData['email'];
+    password:
+    _authData['password'];
+  }
+
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -99,7 +116,7 @@ class _SignInContainerState extends State<SignInContainer> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   //isLoading ? null : () => _submit(context),
                   child: isLoading
                       ? Center(child: CircularProgressIndicator())

@@ -1,4 +1,5 @@
 import 'package:dating_app/common/constants/size_constants.dart';
+import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
@@ -46,10 +47,15 @@ class _SignInContainerState extends State<SignInContainer> {
         email: _authData['email'].toString(),
         password: _authData['password'].toString(),
       );
+      String? email = userCredential.user?.email;
+      String? displayName = userCredential.user?.displayName;
+      Provider.of<UserData>(context, listen: false)
+          .updateUserData(email, displayName);
+
       setState(() {
-          _isLoading = false;
-          print("SetState2 false");
-        });
+        _isLoading = false;
+        print("SetState2 false");
+      });
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 

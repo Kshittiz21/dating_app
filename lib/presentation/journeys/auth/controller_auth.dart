@@ -13,7 +13,7 @@ class ControllerAuth extends StatelessWidget {
         body: Consumer<UserData>(builder: (context, userData, child) {
       print("controller");
       print(userData);
-      if (userData.displayName != null)
+      if (userData.displayName != null || userData.email != null)
         return HomePage();
       else
         return SignInScreen();

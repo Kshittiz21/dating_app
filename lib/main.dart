@@ -4,6 +4,7 @@ import 'package:dating_app/presentation/journeys/auth/controller_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_up_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

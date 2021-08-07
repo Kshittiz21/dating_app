@@ -17,6 +17,7 @@ class UpdateProfile extends StatefulWidget {
 
 class _UpdateProfileState extends State<UpdateProfile> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  TextEditingController controller = TextEditingController();
   bool _isLoading = false;
   late File _pickedImage;
   var _userData = UserModel(
@@ -38,7 +39,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   };
 
   void _saveForm() {
-    if (!_formKey.currentState!.validate() || _userData.images.length<2) {
+    if (!_formKey.currentState!.validate() || _userData.images.length < 2) {
       // INVALID
       setState(() {
         _isLoading = false;
@@ -91,16 +92,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     );
                   }),
             ),
-            Container(
-              width: deviceSize.width*0.2,
-              child: ElevatedButton(
-                onPressed: _pickImage,
-                child: Text('Add Image'),
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(Size(20, 20)),
-                  // backgroundColor:
-                  //     MaterialStateProperty.all(Colors.orange.shade400),
-                ),
+            ElevatedButton(
+              onPressed: _pickImage,
+              child: Text('Add Image'),
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(Size(20, 20)),
+                // backgroundColor:
+                //     MaterialStateProperty.all(Colors.orange.shade400),
               ),
             ),
             TextFormField(
@@ -113,14 +111,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 return null;
               },
               onSaved: (value) {
-                // _userData = UserModel(
-                //   images: _userData.images,
-                //   name: value!,
-                //   gender: _userData.gender,
-                //   age: _userData.age,
-                //   bio: _userData.bio,
-                //   hobbies: _userData.hobbies,
-                // );
                 _userData.name = value!;
               },
             ),
@@ -136,14 +126,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               },
               onSaved: (value) {
                 int temp = int.parse(value!);
-                _userData = UserModel(
-                  images: _userData.images,
-                  name: _userData.name,
-                  gender: _userData.gender,
-                  age: temp,
-                  bio: _userData.bio,
-                  hobbies: _userData.hobbies,
-                );
+                _userData.age = temp;
               },
             ),
             TextFormField(
@@ -156,14 +139,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 return null;
               },
               onSaved: (value) {
-                _userData = UserModel(
-                  images: _userData.images,
-                  name: _userData.name,
-                  gender: value!,
-                  age: _userData.age,
-                  bio: _userData.bio,
-                  hobbies: _userData.hobbies,
-                );
+                _userData.gender = value!;
               },
             ),
             TextFormField(
@@ -177,17 +153,38 @@ class _UpdateProfileState extends State<UpdateProfile> {
               },
               onSaved: (value) {
                 print(value);
-                _userData = UserModel(
-                  images: _userData.images,
-                  name: _userData.name,
-                  gender: _userData.gender,
-                  age: _userData.age,
-                  bio: value!,
-                  hobbies: _userData.hobbies,
-                );
+                _userData.bio = value!;
               },
             ),
-
+            TextField(
+              decoration: InputDecoration(labelText: 'Add Interests'),
+              textInputAction: TextInputAction.next,
+              controller: controller,
+              onSubmitted: (value) {
+                _userData.hobbies.add(value);
+                controller.clear();
+              },
+            ),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   child: Text('Add Hobbies'),
+            //   style: ButtonStyle(
+            //     fixedSize: MaterialStateProperty.all(Size(20, 20)),
+            //     // backgroundColor:
+            //     //     MaterialStateProperty.all(Colors.orange.shade400),
+            //   ),
+            // ),
+            Container(
+              height: Sizes.dimen_60,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _userData.hobbies.length,
+                  itemBuilder: (context, idx) {
+                    return Card(
+                      child: Text(_userData.hobbies[idx]),
+                    );
+                  }),
+            ),
             Center(
               child: Container(
                 width: deviceSize.width * 0.7,

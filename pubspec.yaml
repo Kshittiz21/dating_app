@@ -28,6 +28,9 @@ dependencies:
   google_sign_in: ^5.0.7
   provider: ^5.0.0
   firebase_auth: ^3.0.1
+  flutter_facebook_auth: ^3.5.0
+  equatable: ^2.0.3
+  http: ^0.13.3
 
 
   # The following adds the Cupertino Icons font to your application.

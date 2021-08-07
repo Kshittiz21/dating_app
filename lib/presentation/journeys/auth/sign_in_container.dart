@@ -1,5 +1,6 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
+import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +126,8 @@ class _SignInContainerState extends State<SignInContainer> {
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
                 child: ElevatedButton(
                   onPressed: () {
-                    Provider.of<GoogleAuth>(context, listen: false).login();
+                    Provider.of<GoogleAuth>(context, listen: false)
+                        .login(context);
                   },
                   //isLoading ? null : () => _submit(context),
                   child: isLoading
@@ -149,7 +151,10 @@ class _SignInContainerState extends State<SignInContainer> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<FacebookSignin>(context, listen: false)
+                        .login(context);
+                  },
                   //isLoading ? null : () => _submit(context),
                   child: isLoading
                       ? Center(child: CircularProgressIndicator())

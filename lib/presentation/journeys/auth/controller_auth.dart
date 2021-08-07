@@ -1,4 +1,4 @@
-import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
+import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +10,10 @@ class ControllerAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Consumer<GoogleAuth>(builder: (context, model, child) {
-      if (model.googleSignInAccount != null)
+        body: Consumer<UserData>(builder: (context, userData, child) {
+      print("controller");
+      print(userData);
+      if (userData.displayName != null)
         return HomePage();
       else
         return SignInScreen();

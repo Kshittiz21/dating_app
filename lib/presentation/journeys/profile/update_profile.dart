@@ -29,15 +29,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
     hobbies: [],
   );
 
-  var initData = {
-    'images': [],
-    'name': '',
-    'gender': '',
-    'age': 18,
-    'bio': '',
-    'hobbies': [],
-  };
-
   void _saveForm() {
     if (!_formKey.currentState!.validate() || _userData.images.length < 2) {
       // INVALID

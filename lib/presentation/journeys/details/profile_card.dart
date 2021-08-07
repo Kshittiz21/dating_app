@@ -1,6 +1,6 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
-import 'package:dating_app/widgets/custom_icon.dart';
+import 'package:dating_app/presentation/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 

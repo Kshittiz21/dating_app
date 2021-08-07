@@ -1,9 +1,9 @@
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
+import 'package:dating_app/presentation/journeys/auth/logout.dart';
 import 'package:dating_app/presentation/journeys/details/detail_screen.dart';
 import 'package:dating_app/presentation/journeys/details/liked_profile_screen.dart';
 import 'package:dating_app/presentation/journeys/profile/update_profile.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
-import 'package:dating_app/widgets/bottom_navigation_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ List<Widget> screenList = [
   DetailScreen(),
   LikedProfileScreen(),
   UpdateProfile(),
-  DetailScreen()
+  LogOut(),
 ];
 
 class _HomePageState extends State<HomePage> {
@@ -51,24 +51,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: screenList[selectedIndex],
-      // Container(
-      //   child: Column(
-      //     children: [
-      //       SizedBox(
-      //         height: 100,
-      //       ),
-      //       Center(
-      //         child: Text("Logged In"),
-      //       ),
-      //       TextButton(
-      //           onPressed: () {
-      //             Provider.of<GoogleAuth>(context, listen: false)
-      //                 .logout(context);
-      //           },
-      //           child: Text("Logout"))
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

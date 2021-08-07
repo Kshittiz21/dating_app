@@ -5,6 +5,7 @@ import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_aut
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_up_screen.dart';
 import 'package:dating_app/presentation/journeys/details/detail_screen.dart';
+import 'package:dating_app/presentation/journeys/profile/update_profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           // home: ControllerAuth(),
-          home: DetailScreen(),
+          home: UpdateProfile(),
           routes: {
             SignInScreen.routeName: (ctx) => SignInScreen(),
             SignUpScreen.routeName: (ctx) => SignUpScreen(),

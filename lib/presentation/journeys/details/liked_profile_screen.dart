@@ -47,7 +47,6 @@ class LikedProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtil.init();
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBarWidget(),
       body: Container(
         padding: EdgeInsets.symmetric(
             horizontal: Sizes.dimen_30.w, vertical: Sizes.dimen_10.w),

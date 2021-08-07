@@ -1,5 +1,6 @@
 import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
+import 'package:dating_app/presentation/journeys/auth/controller_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_up_screen.dart';
@@ -35,8 +36,8 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             textTheme: ThemeText.getTextTheme(),
           ),
-          // home: ControllerAuth(),
-          home: LikedProfileScreen(),
+          home: ControllerAuth(),
+          // home: LikedProfileScreen(),
           routes: {
             SignInScreen.routeName: (ctx) => SignInScreen(),
             SignUpScreen.routeName: (ctx) => SignUpScreen(),

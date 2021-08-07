@@ -3,6 +3,7 @@ import 'package:dating_app/common/screen_util/screen_util.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
+import 'package:dating_app/widgets/bottom_navigation_bar_widget.dart';
 import 'package:dating_app/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 

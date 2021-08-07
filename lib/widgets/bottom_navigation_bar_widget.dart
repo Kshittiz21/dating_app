@@ -1,3 +1,4 @@
+import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,12 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      currentIndex: selectedIndex,
+      onTap: (index) {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
       items: [
         BottomNavigationBarItem(
             icon: Icon(Icons.auto_awesome_mosaic, color: AppColors.mediumPink),

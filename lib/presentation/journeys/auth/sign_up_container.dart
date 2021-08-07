@@ -1,6 +1,8 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({Key? key}) : super(key: key);
@@ -10,12 +12,57 @@ class SignUpContainer extends StatefulWidget {
 }
 
 class _SignInContainerState extends State<SignUpContainer> {
+  final _auth = FirebaseAuth.instance;
+  late UserCredential userCredential;
+  bool _isLoading = false;
+
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
+
+  void _submit(BuildContext context) async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      if (!_formKey.currentState!.validate()) {
+        // INVALID
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+      _formKey.currentState!.save();
+      userCredential = await _auth.createUserWithEmailAndPassword(
+        email: _authData['email'].toString(),
+        password: _authData['password'].toString(),
+      );
+    } on PlatformException catch (err) {
+      var message = 'An error occured, please check your credentials!';
+
+      if (err.message != null) {
+        message = err.message!;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (err) {
+      print(err);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -26,31 +73,30 @@ class _SignInContainerState extends State<SignUpContainer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
+            child: Card(
+              //color: Colors.green.shade100,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Sizes.dimen_10),
+              ),
+              elevation: Sizes.dimen_8,
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
-                child: Card(
-                  //color: Colors.green.shade100,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Sizes.dimen_10),
-                  ),
-                  elevation: Sizes.dimen_8,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
-                    child: TextFormField(
-                      decoration: InputDecoration(labelText: 'username'),
-                      validator: (value) {
-                        if (value!.length < 3) {
-                          return 'Name should be at least of 3 characters';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _authData['username'] = value!;
-                      },
-                    ),
-                  ),
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: 'username'),
+                  validator: (value) {
+                    if (value!.length < 3) {
+                      return 'Name should be at least of 3 characters';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _authData['username'] = value!;
+                  },
                 ),
               ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
             child: Card(
@@ -59,8 +105,7 @@ class _SignInContainerState extends State<SignUpContainer> {
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
               ),
               elevation: Sizes.dimen_8,
-              child: 
-              Padding(
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
                 child: TextFormField(
                   decoration: InputDecoration(labelText: 'E-Mail'),
@@ -126,8 +171,7 @@ class _SignInContainerState extends State<SignUpContainer> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
                 child: ElevatedButton(
-                  onPressed: (){},
-                  //isLoading ? null : () => _submit(context),
+                  onPressed: _isLoading ? null : () => _submit(context),
                   child: isLoading
                       ? Center(child: CircularProgressIndicator())
                       : Text('Sign In'),

@@ -1,6 +1,9 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class SignInContainer extends StatefulWidget {
   const SignInContainer({Key? key}) : super(key: key);
@@ -10,6 +13,10 @@ class SignInContainer extends StatefulWidget {
 }
 
 class _SignInContainerState extends State<SignInContainer> {
+  final _auth = FirebaseAuth.instance;
+  late UserCredential userCredential;
+  bool _isLoading = false;
+
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   Map<String, String> _authData = {
@@ -17,23 +24,46 @@ class _SignInContainerState extends State<SignInContainer> {
     'password': '',
   };
 
-  void _submit(BuildContext context) {
-    if (!_formKey.currentState!.validate()) {
-      // INVALID
-      return;
+  void _submit(BuildContext context) async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      if (!_formKey.currentState!.validate()) {
+        // INVALID
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+      _formKey.currentState!.save();
+      userCredential = await _auth.signInWithEmailAndPassword(
+        email: _authData['email'].toString(),
+        password: _authData['password'].toString(),
+      );
+    } on PlatformException catch (err) {
+      var message = 'An error occured, please check your credentials!';
+
+      if (err.message != null) {
+        message = err.message!;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (err) {
+      print(err);
+      setState(() {
+        _isLoading = false;
+      });
     }
-    _formKey.currentState!.save();
-    _onFormSubmitted(context);
-  }
-  
-  void _onFormSubmitted(BuildContext context) {
-    email:
-    _authData['email'];
-    password:
-    _authData['password'];
   }
 
-  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -116,9 +146,8 @@ class _SignInContainerState extends State<SignInContainer> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
                 child: ElevatedButton(
-                  onPressed: () {},
-                  //isLoading ? null : () => _submit(context),
-                  child: isLoading
+                  onPressed: _isLoading ? null : () => _submit(context),
+                  child: _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : Text('Sign In'),
                   style: ButtonStyle(

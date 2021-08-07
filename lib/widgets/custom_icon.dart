@@ -5,6 +5,7 @@ class CustomIcon extends StatelessWidget {
   final Color iconColor;
   final double iconSize;
   final IconData iconData;
+  final void Function() onTap;
 
   CustomIcon({
     Key? key,
@@ -12,20 +13,21 @@ class CustomIcon extends StatelessWidget {
     required this.iconColor,
     required this.iconSize,
     required this.iconData,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return InkWell(
+      onTap: onTap,
       child: Container(
-        height: iconSize * 1.3,
-        width: iconSize * 1.3,
+        height: iconSize * 1.4,
+        width: iconSize * 1.4,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(iconSize),
             color: backGroundColor),
-        child: IconButton(
-          onPressed: () {},
-          icon: Icon(
+        child: Center(
+          child: Icon(
             iconData,
             color: iconColor,
             size: iconSize,

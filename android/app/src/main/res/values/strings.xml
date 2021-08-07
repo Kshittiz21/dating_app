@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">com.example.dating_app</string>
+    <string name="facebook_app_id">1012866356135186</string>
+    <string name="fb_login_protocol_scheme">fb1012866356135186</string>
+</resources>

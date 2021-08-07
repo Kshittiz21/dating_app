@@ -1,17 +1,27 @@
+import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class GoogleAuth with ChangeNotifier {
   var _googleAuth = GoogleSignIn();
   GoogleSignInAccount? googleSignInAccount;
+  String? email;
+  String? displayName;
 
-  void login() async {
+  void login(BuildContext context) async {
     googleSignInAccount = await _googleAuth.signIn();
-    notifyListeners();
+    email = googleSignInAccount?.email;
+    displayName = googleSignInAccount?.displayName;
+
+    Provider.of<UserData>(context, listen: false)
+        .updateUserData(email, displayName);
+    // notifyListeners();
   }
 
-  void logout() async {
+  void logout(BuildContext context) async {
     googleSignInAccount = await _googleAuth.signOut();
-    notifyListeners();
+    Provider.of<UserData>(context, listen: false).updateUserData(null, null);
+    // notifyListeners();
   }
 }

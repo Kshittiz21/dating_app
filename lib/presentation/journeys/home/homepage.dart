@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                Provider.of<GoogleAuth>(context, listen: false).logout();
+                Provider.of<GoogleAuth>(context, listen: false).logout(context);
               },
               child: Text("Logout"))
         ],

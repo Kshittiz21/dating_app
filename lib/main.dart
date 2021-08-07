@@ -1,8 +1,9 @@
+import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/controller_auth.dart';
+import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_up_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,11 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<GoogleAuth>(
           create: (_) => GoogleAuth(),
-        )
+        ),
+        ChangeNotifierProvider<FacebookSignin>(
+          create: (_) => FacebookSignin(),
+        ),
+        ChangeNotifierProvider<UserData>(create: (_) => UserData()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

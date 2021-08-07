@@ -40,6 +40,9 @@ class _SignInContainerState extends State<SignUpContainer> {
         email: _authData['email'].toString(),
         password: _authData['password'].toString(),
       );
+      setState(() {
+          _isLoading = false;
+        });
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 
@@ -173,7 +176,7 @@ class _SignInContainerState extends State<SignUpContainer> {
                   onPressed: _isLoading ? null : () => _submit(context),
                   child: _isLoading
                       ? Center(child: CircularProgressIndicator())
-                      : Text('Sign In'),
+                      : Text('Sign Up'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Colors.orange.shade400),

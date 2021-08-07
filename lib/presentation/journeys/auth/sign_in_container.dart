@@ -30,11 +30,13 @@ class _SignInContainerState extends State<SignInContainer> {
     try {
       setState(() {
         _isLoading = true;
+        print("SetState1 true");
       });
       if (!_formKey.currentState!.validate()) {
         // INVALID
         setState(() {
           _isLoading = false;
+          print("SetState2 false");
         });
         return;
       }
@@ -43,6 +45,10 @@ class _SignInContainerState extends State<SignInContainer> {
         email: _authData['email'].toString(),
         password: _authData['password'].toString(),
       );
+      setState(() {
+          _isLoading = false;
+          print("SetState2 false");
+        });
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 
@@ -57,11 +63,13 @@ class _SignInContainerState extends State<SignInContainer> {
       );
       setState(() {
         _isLoading = false;
+        print("SetState3 false");
       });
     } catch (err) {
       print(err);
       setState(() {
         _isLoading = false;
+        print("SetState4 false");
       });
     }
   }
@@ -174,7 +182,7 @@ class _SignInContainerState extends State<SignInContainer> {
                     Provider.of<GoogleAuth>(context, listen: false).login();
                   },
                   //isLoading ? null : () => _submit(context),
-                  child: isLoading
+                  child: _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : Text('Sign In with Google'),
                   style: ButtonStyle(
@@ -197,7 +205,7 @@ class _SignInContainerState extends State<SignInContainer> {
                 child: ElevatedButton(
                   onPressed: () {},
                   //isLoading ? null : () => _submit(context),
-                  child: isLoading
+                  child: _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : Text('Sign In with Facebook'),
                   style: ButtonStyle(

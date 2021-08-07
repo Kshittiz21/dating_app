@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 int selectedIndex = 0;
 
 class HomePage extends StatefulWidget {
+    static const routeName = '/home-page';
+
   HomePage({Key? key}) : super(key: key);
 
   @override

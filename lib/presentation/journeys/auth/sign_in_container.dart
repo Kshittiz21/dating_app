@@ -1,9 +1,11 @@
 import 'package:dating_app/common/constants/size_constants.dart';
+import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class SignInContainer extends StatefulWidget {
   const SignInContainer({Key? key}) : super(key: key);
@@ -150,6 +152,54 @@ class _SignInContainerState extends State<SignInContainer> {
                   child: _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : Text('Sign In'),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.orange.shade400),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: Container(
+              width: deviceSize.width * 0.7,
+              height: deviceSize.height * 0.07,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(Sizes.dimen_10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Provider.of<GoogleAuth>(context, listen: false).login();
+                  },
+                  //isLoading ? null : () => _submit(context),
+                  child: isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Text('Sign In with Google'),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.orange.shade400),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: Container(
+              width: deviceSize.width * 0.7,
+              height: deviceSize.height * 0.07,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(Sizes.dimen_10),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  //isLoading ? null : () => _submit(context),
+                  child: isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Text('Sign In with Facebook'),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Colors.orange.shade400),

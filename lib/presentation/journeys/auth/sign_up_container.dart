@@ -63,7 +63,6 @@ class _SignInContainerState extends State<SignUpContainer> {
     }
   }
 
-  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -172,7 +171,7 @@ class _SignInContainerState extends State<SignUpContainer> {
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : () => _submit(context),
-                  child: isLoading
+                  child: _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : Text('Sign In'),
                   style: ButtonStyle(

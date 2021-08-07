@@ -5,6 +5,8 @@ import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_aut
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_up_screen.dart';
 import 'package:dating_app/presentation/journeys/details/detail_screen.dart';
+import 'package:dating_app/presentation/journeys/details/liked_profile_screen.dart';
+import 'package:dating_app/presentation/themes/text_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,9 +35,10 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            textTheme: ThemeText.getTextTheme(),
           ),
           // home: ControllerAuth(),
-          home: DetailScreen(),
+          home: LikedProfileScreen(),
           routes: {
             SignInScreen.routeName: (ctx) => SignInScreen(),
             SignUpScreen.routeName: (ctx) => SignUpScreen(),

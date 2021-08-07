@@ -13,7 +13,6 @@ class GoogleAuth with ChangeNotifier {
     googleSignInAccount = await _googleAuth.signIn();
     email = googleSignInAccount?.email;
     displayName = googleSignInAccount?.displayName;
-
     Provider.of<UserData>(context, listen: false)
         .updateUserData(email, displayName);
     // notifyListeners();

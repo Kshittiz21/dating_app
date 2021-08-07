@@ -26,31 +26,30 @@ class _SignInContainerState extends State<SignUpContainer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
+            child: Card(
+              //color: Colors.green.shade100,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Sizes.dimen_10),
+              ),
+              elevation: Sizes.dimen_8,
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
-                child: Card(
-                  //color: Colors.green.shade100,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Sizes.dimen_10),
-                  ),
-                  elevation: Sizes.dimen_8,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
-                    child: TextFormField(
-                      decoration: InputDecoration(labelText: 'username'),
-                      validator: (value) {
-                        if (value!.length < 3) {
-                          return 'Name should be at least of 3 characters';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _authData['username'] = value!;
-                      },
-                    ),
-                  ),
+                child: TextFormField(
+                  decoration: InputDecoration(labelText: 'username'),
+                  validator: (value) {
+                    if (value!.length < 3) {
+                      return 'Name should be at least of 3 characters';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _authData['username'] = value!;
+                  },
                 ),
               ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
             child: Card(
@@ -59,8 +58,7 @@ class _SignInContainerState extends State<SignUpContainer> {
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
               ),
               elevation: Sizes.dimen_8,
-              child: 
-              Padding(
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
                 child: TextFormField(
                   decoration: InputDecoration(labelText: 'E-Mail'),
@@ -126,7 +124,7 @@ class _SignInContainerState extends State<SignUpContainer> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   //isLoading ? null : () => _submit(context),
                   child: isLoading
                       ? Center(child: CircularProgressIndicator())

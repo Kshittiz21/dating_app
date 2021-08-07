@@ -1,5 +1,6 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
+import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -161,7 +162,7 @@ class _SignInContainerState extends State<SignUpContainer> {
             padding: const EdgeInsets.only(left: Sizes.dimen_8),
             child: TextButton(
               onPressed: () {
-                //Navigator.of(context).pushNamed(HomeScreen.routeName);
+                Navigator.of(context).pushNamed(HomePage.routeName);
               },
               child: Text('Forgot Your Password?'),
             ),

@@ -1,11 +1,14 @@
+import 'package:dating_app/common/constants/image_constants.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
+import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dating_app/common/extensions/size_extensions.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
@@ -92,15 +95,15 @@ class _SignInContainerState extends State<SignInContainer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
+            padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_10.w),
             child: Card(
               //color: Colors.green.shade100,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Sizes.dimen_10),
               ),
-              elevation: Sizes.dimen_8,
+              elevation: Sizes.dimen_8.w,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
+                padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_10.w),
                 child: TextFormField(
                   decoration: InputDecoration(labelText: 'E-Mail'),
                   keyboardType: TextInputType.emailAddress,
@@ -117,18 +120,18 @@ class _SignInContainerState extends State<SignInContainer> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: Sizes.dimen_10,
-              top: Sizes.dimen_10,
-              right: Sizes.dimen_10,
+            padding: EdgeInsets.only(
+              left: Sizes.dimen_10.w,
+              top: Sizes.dimen_10.w,
+              right: Sizes.dimen_10.w,
             ),
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Sizes.dimen_10),
+                borderRadius: BorderRadius.circular(Sizes.dimen_10.w),
               ),
-              elevation: Sizes.dimen_8,
+              elevation: Sizes.dimen_8.w,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
+                padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_10.w),
                 child: TextFormField(
                   decoration: InputDecoration(labelText: 'Password'),
                   obscureText: true,
@@ -150,12 +153,12 @@ class _SignInContainerState extends State<SignInContainer> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: Sizes.dimen_8),
+            padding: EdgeInsets.only(left: Sizes.dimen_8.w),
             child: TextButton(
               onPressed: () {
-                //Navigator.of(context).pushNamed(HomeScreen.routeName);
+                Navigator.of(context).pushNamed(HomePage.routeName);
               },
-              child: Text('Forgot Your Password?'),
+              child: Text('Forgot Password?'),
             ),
           ),
           Center(
@@ -163,7 +166,7 @@ class _SignInContainerState extends State<SignInContainer> {
               width: deviceSize.width * 0.7,
               height: deviceSize.height * 0.07,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(Sizes.dimen_10),
+                borderRadius: BorderRadius.circular(Sizes.dimen_10.w),
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : () => _submit(context),
                   child: _isLoading
@@ -177,29 +180,29 @@ class _SignInContainerState extends State<SignInContainer> {
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Center(
-            child: Container(
-              width: deviceSize.width * 0.7,
-              height: deviceSize.height * 0.07,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(Sizes.dimen_10),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Provider.of<GoogleAuth>(context, listen: false)
-                        .login(context);
-                  },
-                  //isLoading ? null : () => _submit(context),
-                  child: _isLoading
-                      ? Center(child: CircularProgressIndicator())
-                      : Text('Sign In with Google'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.orange.shade400),
+
+          SizedBox(height: Sizes.dimen_20.w),
+          InkWell(
+            onTap: () {
+              Provider.of<GoogleAuth>(context, listen: false).login(context);
+            },
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    //width: deviceSize.width * 0.2,
+                    height: deviceSize.height * 0.07,
+                    child: _isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        //: Text('Sign In with Google'),
+                        // : CircleAvatar(
+                        //     child:
+                        : Image.asset(Images.googleLogo),
+                    //),
                   ),
-                ),
+                  Text(' Sign In with Google Instead'),
+                ],
               ),
             ),
           ),

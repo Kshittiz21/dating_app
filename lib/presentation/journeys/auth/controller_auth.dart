@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/common/screen_util/screen_util.dart';
 import 'package:dating_app/domain/entities/user_data.dart';

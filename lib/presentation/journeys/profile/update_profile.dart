@@ -36,14 +36,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
   bool _isLoading = false;
   late File _pickedImage;
 
-void _saveForm() async {
+  void _saveForm() async {
     if (!_formKey.currentState!.validate()) {
       // INVALID
       setState(() {
         _isLoading = false;
       });
       print("INVALID");
-      if (_userData.images.length < 2) {
+      if (userData.images.length < 2) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Select at Least 2 images'),
           backgroundColor: Theme.of(context).errorColor,
@@ -51,7 +51,7 @@ void _saveForm() async {
       }
       return;
     }
-    if (_userData.images.length < 2) {
+    if (userData.images.length < 2) {
       // INVALID
       setState(() {
         _isLoading = false;
@@ -66,30 +66,30 @@ void _saveForm() async {
     try {
       _formKey.currentState!.save();
 
-      print(_userData.name);
-      print(_userData.age);
-      print(_userData.gender);
-      print(_userData.bio);
-      print(_userData.hobbies[0]);
-      for (int i = 0; i < _userData.images.length; i++) {
+      print(userData.name);
+      print(userData.age);
+      print(userData.gender);
+      print(userData.bio);
+      print(userData.hobbies[0]);
+      for (int i = 0; i < userData.images.length; i++) {
         final ref = FirebaseStorage.instance
             .ref()
             .child('user_image')
             .child(FirebaseAuth.instance.currentUser!.uid)
             .child(
                 FirebaseAuth.instance.currentUser!.uid + i.toString() + '.jpg');
-        await ref.putFile(_userData.images[i]).whenComplete(() => null);
+        await ref.putFile(userData.images[i]).whenComplete(() => null);
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .set({
         //'images': _userData.images,
-        'name': _userData.name,
-        'age': _userData.age,
-        'gender': _userData.gender,
-        'bio': _userData.bio,
-        'hobbies': _userData.hobbies,
+        'name': userData.name,
+        'age': userData.age,
+        'gender': userData.gender,
+        'bio': userData.bio,
+        'hobbies': userData.hobbies,
       });
       print("COMPLETED");
     } on PlatformException catch (err) {
@@ -146,12 +146,12 @@ void _saveForm() async {
                 height: Sizes.dimen_60,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _userData.images.length,
+                    itemCount: userData.images.length,
                     itemBuilder: (context, idx) {
                       return CircleAvatar(
                         backgroundColor: Colors.grey,
                         radius: 40,
-                        backgroundImage: FileImage(_userData.images[idx]),
+                        backgroundImage: FileImage(userData.images[idx]),
                       );
                     }),
               ),
@@ -175,7 +175,7 @@ void _saveForm() async {
                   return null;
                 },
                 onSaved: (value) {
-                  _userData.name = value!;
+                  userData.name = value!;
                 },
               ),
               TextFormField(
@@ -190,7 +190,7 @@ void _saveForm() async {
                 },
                 onSaved: (value) {
                   int temp = int.parse(value!);
-                  _userData.age = temp;
+                  userData.age = temp;
                 },
               ),
               TextFormField(
@@ -204,7 +204,7 @@ void _saveForm() async {
                   return null;
                 },
                 onSaved: (value) {
-                  _userData.gender = value!;
+                  userData.gender = value!;
                 },
               ),
               TextFormField(
@@ -219,7 +219,7 @@ void _saveForm() async {
                 },
                 onSaved: (value) {
                   print(value);
-                  _userData.bio = value!;
+                  userData.bio = value!;
                 },
               ),
               TextField(
@@ -228,7 +228,7 @@ void _saveForm() async {
                 textCapitalization: TextCapitalization.sentences,
                 controller: controller,
                 onSubmitted: (value) {
-                  _userData.hobbies.add(value);
+                  userData.hobbies.add(value);
                   controller.clear();
                   setState(() {});
                 },
@@ -239,7 +239,7 @@ void _saveForm() async {
                   height: Sizes.dimen_60,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _userData.hobbies.length,
+                      itemCount: userData.hobbies.length,
                       itemBuilder: (context, idx) {
                         return Padding(
                           padding:
@@ -259,7 +259,7 @@ void _saveForm() async {
                                     color:
                                         AppColors.mediumAppColorList[idx % 3])),
                             child: Text(
-                              _userData.hobbies[idx],
+                              userData.hobbies[idx],
                             ),
                           ),
                         );

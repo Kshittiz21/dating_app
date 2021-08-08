@@ -1,8 +1,8 @@
 import 'package:dating_app/common/constants/image_constants.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/user_data.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
-import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
 import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,8 +52,7 @@ class _SignInContainerState extends State<SignInContainer> {
       );
       String? email = userCredential.user?.email;
       String? displayName = userCredential.user?.displayName;
-      Provider.of<UserData>(context, listen: false)
-          .updateUserData(email, displayName);
+      Provider.of<UserModel>(context, listen: false).updateEmail(email);
 
       setState(() {
         _isLoading = false;
@@ -178,6 +177,7 @@ class _SignInContainerState extends State<SignInContainer> {
               ),
             ),
           ),
+
           SizedBox(height: Sizes.dimen_20.w),
           InkWell(
             onTap: () {

@@ -13,9 +13,6 @@ class LikedProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ScreenUtil.init();
-    // print(userProfile.runtimeType);
-    // print(userProfile.toString());
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: Sizes.dimen_30.w, vertical: Sizes.dimen_10.w),
@@ -38,7 +35,7 @@ class LikedProfileScreen extends StatelessWidget {
           ),
           GridView.builder(
             shrinkWrap: true,
-            itemCount: testUser.likedUserList.length,
+            itemCount: userProfile.likedUserList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: Sizes.dimen_16.w,
@@ -47,7 +44,7 @@ class LikedProfileScreen extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return ProfileCard(
-                profile: testUser.likedUserList[index],
+                profile: userProfile.likedUserList[index],
               );
             },
           ),

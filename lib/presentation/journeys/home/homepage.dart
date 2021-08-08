@@ -1,3 +1,4 @@
+import 'package:dating_app/common/constants/image_constants.dart';
 import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/logout.dart';
@@ -19,12 +20,12 @@ class HomePage extends StatefulWidget {
 }
 
 UserModel testUser = UserModel(
-  images: [],
-  name: 'Akshay Kumar',
-  gender: 'Male',
-  age: 32,
+  images: [Images.anushka_sharma],
+  name: 'Anushka Sharma',
+  gender: 'Female',
+  age: 26,
   bio:
-      'Rajiv Hari Om Bhatia, known professionally as Akshay Kumar, is an Indian-born naturalised Canadian actor, film producer, martial artist and television personality who works in Bollywood, the commercial Hindi language film industry based chiefly in Mumbai.',
+      'Anushka Sharma is an Indian actress and film producer who works in Hindi films. One of the most popular and highest-paid actresses in India, she has received several awards, including a Filmfare Award.',
   hobbies: [
     'drwaing',
     'Music',
@@ -32,7 +33,7 @@ UserModel testUser = UserModel(
     'Dancing',
     'Sports',
   ],
-  likedUserList: users,
+  likedUserList: [],
 );
 
 List<Widget> screenList = [

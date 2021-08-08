@@ -1,4 +1,5 @@
 import 'package:dating_app/domain/entities/user_data.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/controller_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_auth.dart';
@@ -29,6 +30,17 @@ class MyApp extends StatelessWidget {
           create: (_) => FacebookSignin(),
         ),
         ChangeNotifierProvider<UserData>(create: (_) => UserData()),
+        ChangeNotifierProvider<UserModel>(
+          create: (_) => UserModel(
+            images: [],
+            name: '',
+            gender: '',
+            age: 18,
+            bio: '',
+            hobbies: [],
+            likedUserList: [],
+          ),
+        ),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',

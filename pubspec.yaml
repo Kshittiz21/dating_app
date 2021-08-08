@@ -58,6 +58,11 @@ flutter:
     - assets/images/tinder.png
     - assets/images/anushka_sharma.jpg
     - assets/images/shruti_hasan.jpg
+    - assets/images/akshay_kumar.jpg
+    - assets/images/alia.jpg
+    - assets/images/deepika.jpg
+    - assets/images/kriti.jpg
+    - assets/images/madhuri.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

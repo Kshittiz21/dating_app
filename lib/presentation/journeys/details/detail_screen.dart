@@ -7,9 +7,31 @@ import 'package:dating_app/presentation/themes/app_colors.dart';
 import 'package:dating_app/presentation/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final UserModel userModel;
-  DetailScreen({Key? key, required this.userModel}) : super(key: key);
+  final bool isFavourite;
+  final void Function(
+      UserModel userProfile, BuildContext context, bool isFavourite) onTap;
+  DetailScreen(
+      {Key? key,
+      required this.userModel,
+      required this.onTap,
+      required this.isFavourite})
+      : super(key: key);
+
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  late bool isFavourite;
+
+  @override
+  void initState() {
+    isFavourite = widget.isFavourite;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
@@ -20,10 +42,11 @@ class DetailScreen extends StatelessWidget {
           children: [
             Container(
               height: Sizes.dimen_350.w,
+              width: Sizes.dimen_360.w,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_30.w),
                 child: Image.asset(
-                  "assets/images/anushka_sharma.jpg",
+                  "${widget.userModel.images[0]}",
                   fit: BoxFit.fill,
                 ),
               ),
@@ -33,11 +56,17 @@ class DetailScreen extends StatelessWidget {
               left: Sizes.dimen_140.w,
               child: Container(
                 child: CustomIcon(
-                  backGroundColor: Color(0xffF858A4),
-                  iconColor: Colors.white,
+                  backGroundColor:
+                      isFavourite ? Colors.white : Color(0xffF858A4),
+                  iconColor: isFavourite ? Color(0xffF858A4) : Colors.white,
                   iconSize: Sizes.dimen_60.w,
                   iconData: Icons.favorite,
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      isFavourite = !isFavourite;
+                    });
+                    widget.onTap(widget.userModel, context, isFavourite);
+                  },
                 ),
               ),
             ),
@@ -49,11 +78,11 @@ class DetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${userModel.name}, ${userModel.age}",
+                      "${widget.userModel.name}, ${widget.userModel.age}",
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Text(
-                      "${userModel.gender}",
+                      "${widget.userModel.gender}",
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -69,7 +98,7 @@ class DetailScreen extends StatelessWidget {
                     Container(
                       width: Sizes.dimen_300.w,
                       child: Text(
-                        "${userModel.bio}",
+                        "${widget.userModel.bio}",
                         maxLines: 5,
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -86,7 +115,9 @@ class DetailScreen extends StatelessWidget {
                       child: Wrap(
                         spacing: Sizes.dimen_10.w,
                         children: [
-                          for (int i = 0; i < userModel.hobbies.length; i++)
+                          for (int i = 0;
+                              i < widget.userModel.hobbies.length;
+                              i++)
                             Container(
                               margin: EdgeInsets.symmetric(
                                   vertical: Sizes.dimen_4.w),
@@ -102,7 +133,7 @@ class DetailScreen extends StatelessWidget {
                                       color:
                                           AppColors.mediumAppColorList[i % 3])),
                               child: Text(
-                                userModel.hobbies[i],
+                                widget.userModel.hobbies[i],
                               ),
                             ),
                         ],

@@ -1,17 +1,32 @@
 import 'dart:io';
 
+import 'package:dating_app/common/constants/image_constants.dart';
+import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class UserModel with ChangeNotifier {
+class UserModel extends Equatable with ChangeNotifier {
   late String bio, name, gender;
   late String email;
-  late List<File> images;
+  late List<String> images;
   late List<String> hobbies;
   late int age;
-  late List<UserModel> likedUserList;
+  List<UserModel> likedUserList;
 
   void addLikedUser(UserModel userModel) {
-    likedUserList.add(userModel);
+    if (!likedUserList.contains(userModel)) likedUserList.add(userModel);
+    print(likedUserList.length);
+    notifyListeners();
+  }
+
+  bool isFavourtie(UserModel userModel) {
+    return likedUserList.contains(userModel);
+  }
+
+  void removeLikedUser(UserModel userModel) {
+    likedUserList.remove(userModel);
+    print(likedUserList.length);
+    notifyListeners();
   }
 
   UserModel({
@@ -21,13 +36,17 @@ class UserModel with ChangeNotifier {
     required this.age,
     required this.bio,
     required this.hobbies,
-    this.likedUserList = const [],
+    required this.likedUserList,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [name];
 }
 
 List<UserModel> users = [
   UserModel(
-    images: [],
+    images: [Images.akshayKumar],
     name: 'Akshay Kumar',
     gender: 'Male',
     age: 32,
@@ -40,9 +59,10 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
-    images: [],
+    images: [Images.shrutiHasan],
     name: 'Shruti haasan',
     gender: 'Female',
     age: 28,
@@ -55,9 +75,10 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
-    images: [],
+    images: [Images.deepika],
     name: 'Deepika',
     gender: 'Female',
     age: 28,
@@ -70,9 +91,10 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
-    images: [],
+    images: [Images.kriti],
     name: 'Kriti Kharbanda',
     gender: 'Female',
     age: 28,
@@ -85,9 +107,10 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
-    images: [],
+    images: [Images.alia],
     name: 'Alia Bhatt',
     gender: 'Female',
     age: 24,
@@ -100,9 +123,10 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
-    images: [],
+    images: [Images.madhuri],
     name: 'Madhuri Dixit',
     gender: 'Female',
     age: 36,
@@ -115,5 +139,6 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
 ];

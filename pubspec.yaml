@@ -76,6 +76,7 @@ flutter:
     - assets/app_images/signUp.jpeg
     - assets/app_images/updateProfile.jpeg
     - assets/app_images/updateProfile2.jpeg
+    - assets/images/mahi.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

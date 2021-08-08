@@ -34,6 +34,7 @@ class ControllerAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
+
     return Scaffold(
         body: Consumer<UserModel>(builder: (context, userData, child) {
       if (userData.email == null) return SignInScreen();
@@ -48,18 +49,19 @@ class ControllerAuth extends StatelessWidget {
                 ),
               );
 
-            if (snapshot.connectionState == ConnectionState.done) {
-              bool isNew = snapshot.data as bool;
-              print("isNew isNew:" + isNew.toString());
-              if (isNew) {
-                return UpdateProfile();
-              } else {
-                print(userData.uid);
-                return HomePage();
-              }
+            // if (snapshot.connectionState == ConnectionState.done) {
+            bool isNew = snapshot.data as bool;
+            print("isNew isNew:" + isNew.toString());
+            if (isNew) {
+              print("update profile returned");
+              return UpdateProfile();
+            } else {
+              print(userData.uid);
+              return HomePage();
             }
-            return SizedBox.shrink();
-          });
+          }
+          // return SizedBox.shrink();
+          );
     }));
   }
 }

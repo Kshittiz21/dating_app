@@ -9,6 +9,7 @@ import 'package:dating_app/presentation/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
+  static const routeName = '/details-page';
   final UserModel userModel;
   final bool isFavourite;
   final void Function(
@@ -47,7 +48,7 @@ class _DetailScreenState extends State<DetailScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_30.w),
                 child: Image.asset(
-                  "${Images.kriti}",
+                  "${widget.userModel.imageUrl[0]}",
                   fit: BoxFit.fill,
                 ),
               ),

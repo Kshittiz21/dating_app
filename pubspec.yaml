@@ -69,6 +69,13 @@ flutter:
     - assets/images/kriti.jpg
     - assets/images/madhuri.jpg
     - assets/images/google.png
+    - assets/app_images/google+.jpeg
+    - assets/app_images/homePage.jpeg
+    - assets/app_images/matches.jpeg
+    - assets/app_images/signIn.jpeg
+    - assets/app_images/signUp.jpeg
+    - assets/app_images/updateProfile.jpeg
+    - assets/app_images/updateProfile2.jpeg
     - assets/images/mahi.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

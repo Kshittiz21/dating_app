@@ -1,3 +1,4 @@
+import 'package:dating_app/common/screen_util/screen_util.dart';
 import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/home/homepage.dart';
@@ -9,6 +10,7 @@ class ControllerAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init();
     return Scaffold(
         body: Consumer<UserData>(builder: (context, userData, child) {
       print("controller");

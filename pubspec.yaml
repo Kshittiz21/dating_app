@@ -58,6 +58,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/tinder.png
+    - assets/images/tinder2.png
+    - assets/images/tinder3.png
+    - assets/images/tinder4.png
     - assets/images/anushka_sharma.jpg
     - assets/images/shruti_hasan.jpg
     - assets/images/akshay_kumar.jpg
@@ -65,7 +68,7 @@ flutter:
     - assets/images/deepika.jpg
     - assets/images/kriti.jpg
     - assets/images/madhuri.jpg
-
+    - assets/images/google.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

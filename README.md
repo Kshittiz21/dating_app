@@ -7,24 +7,24 @@
 ## Images
 
 #### Login Screen
-<img src="app_images/signIn.jpeg"
+<img src="assets/app_images/signIn.jpeg"
 alt="login_screen" width="300"/>
 
 #### Sign Up Screen
-<img src="app_images/signUp.jpeg"
+<img src="assets/app_images/signUp.jpeg"
 alt="signup_screen" width="300"/>
 
 #### Google+ Authentication
-<img src="app_images/google+.jpeg" alt="Google+ Authentication" width="300"/>
+<img src="assets/app_images/google+.jpeg" alt="Google+ Authentication" width="300"/>
 
 #### Home Screen
-<img src="app_images/home_Page.jpeg" alt="home_screen" width="300"/>
+<img src="assets/app_images/homePage.jpeg" alt="home_screen" width="300"/>
 
 #### Matches
-<img src="app_images/matches.jpeg" alt="matches" width="300"/>
+<img src="assets/app_images/matches.jpeg" alt="matches" width="300"/>
 
 #### Update Profile 1
-<img src="app_images/updateProfile.jpeg" alt="Update Profile 1" width="300"/>
+<img src="assets/app_images/updateProfile.jpeg" alt="Update Profile 1" width="300"/>
 
 #### Update Profile 2
-<img src="app_images/updateProfile.jpeg" alt="Update Profile 2" width="300"/>
+<img src="assets/app_images/updateProfile.jpeg" alt="Update Profile 2" width="300"/>

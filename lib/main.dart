@@ -6,6 +6,7 @@ import 'package:dating_app/presentation/journeys/auth/facebook_auth/facebook_aut
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_up_screen.dart';
 import 'package:dating_app/presentation/journeys/details/liked_profile_screen.dart';
+import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:dating_app/presentation/themes/text_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
           routes: {
             SignInScreen.routeName: (ctx) => SignInScreen(),
             SignUpScreen.routeName: (ctx) => SignUpScreen(),
+            HomePage.routeName: (ctx) => HomePage(),
           }),
     );
   }

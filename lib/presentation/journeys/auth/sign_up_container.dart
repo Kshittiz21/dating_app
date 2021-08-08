@@ -1,5 +1,6 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
+import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,8 +42,8 @@ class _SignInContainerState extends State<SignUpContainer> {
         password: _authData['password'].toString(),
       );
       setState(() {
-          _isLoading = false;
-        });
+        _isLoading = false;
+      });
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 
@@ -74,31 +75,6 @@ class _SignInContainerState extends State<SignUpContainer> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
-            child: Card(
-              //color: Colors.green.shade100,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Sizes.dimen_10),
-              ),
-              elevation: Sizes.dimen_8,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: 'username'),
-                  validator: (value) {
-                    if (value!.length < 3) {
-                      return 'Name should be at least of 3 characters';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _authData['username'] = value!;
-                  },
-                ),
-              ),
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.dimen_10),
             child: Card(
@@ -161,7 +137,7 @@ class _SignInContainerState extends State<SignUpContainer> {
             padding: const EdgeInsets.only(left: Sizes.dimen_8),
             child: TextButton(
               onPressed: () {
-                //Navigator.of(context).pushNamed(HomeScreen.routeName);
+                Navigator.of(context).pushNamed(HomePage.routeName);
               },
               child: Text('Forgot Your Password?'),
             ),

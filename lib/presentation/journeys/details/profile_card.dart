@@ -24,7 +24,7 @@ class ProfileCard extends StatelessWidget {
             child: InkWell(
               onTap: () {},
               child: Image.asset(
-                "assets/images/anushka_sharma.jpg",
+                "${profile.imageUrl[0]}",
                 fit: BoxFit.cover,
                 height: 150,
                 width: 150,

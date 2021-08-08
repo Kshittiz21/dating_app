@@ -4,6 +4,7 @@ import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.da
 import 'package:dating_app/presentation/journeys/auth/controller_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_in_screen.dart';
 import 'package:dating_app/presentation/journeys/auth/sign_up_screen.dart';
+import 'package:dating_app/presentation/journeys/details/detail_screen.dart';
 import 'package:dating_app/presentation/journeys/details/liked_profile_screen.dart';
 import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:dating_app/presentation/themes/text_theme.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    fetchUserData();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<GoogleAuth>(
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
             likedUserList: [],
             email: null,
             uid: '',
+            imageUrl: [],
           ),
         ),
       ],

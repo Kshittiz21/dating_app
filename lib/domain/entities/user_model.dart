@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/common/constants/image_constants.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,10 +14,12 @@ class UserModel extends Equatable with ChangeNotifier {
   late List<String> hobbies;
   late int age;
   List<UserModel> likedUserList;
+  late List<String> imageUrl;
 
   void addLikedUser(UserModel userModel) {
     if (!likedUserList.contains(userModel)) likedUserList.add(userModel);
     print(likedUserList.length);
+    print(likedUserList);
     notifyListeners();
   }
 
@@ -27,12 +30,15 @@ class UserModel extends Equatable with ChangeNotifier {
   void removeLikedUser(UserModel userModel) {
     likedUserList.remove(userModel);
     print(likedUserList.length);
+    print(likedUserList);
     notifyListeners();
   }
 
   void updateEmail(String? email, String uid) {
     this.email = email;
     this.uid = uid;
+    print(email);
+    print(uid);
     notifyListeners();
   }
 
@@ -46,10 +52,40 @@ class UserModel extends Equatable with ChangeNotifier {
     required this.likedUserList,
     required this.email,
     required this.uid,
+    required this.imageUrl,
   });
 
   @override
-  List<Object?> get props => [email];
+  List<Object?> get props => [email, name];
+}
+
+void fetchUserData() {
+  CollectionReference _docRef = FirebaseFirestore.instance.collection('users');
+
+  Map<String, dynamic> m;
+  _docRef.get().then(
+    (value) {
+      value.docs.forEach((element) {
+        m = element.data() as Map<String, dynamic>;
+
+        users.add(UserModel(
+          images: m['images'],
+          name: m['name'],
+          gender: m['gender'],
+          age: m['age'],
+          bio: m['bio'],
+          hobbies: m['hobbies'],
+          likedUserList: m['likedUserList'],
+          email: m['email'],
+          uid: m['uid'],
+          imageUrl: m['imageUrl'],
+        ));
+
+        print(element.data);
+      });
+    },
+  );
+  print(users);
 }
 
 List<UserModel> users = [
@@ -70,6 +106,7 @@ List<UserModel> users = [
     likedUserList: [],
     email: null,
     uid: '',
+    imageUrl: [Images.akshayKumar],
   ),
   UserModel(
     images: [],
@@ -88,6 +125,7 @@ List<UserModel> users = [
     likedUserList: [],
     email: null,
     uid: '',
+    imageUrl: [Images.shrutiHasan],
   ),
   UserModel(
     images: [],
@@ -106,6 +144,7 @@ List<UserModel> users = [
     likedUserList: [],
     email: null,
     uid: '',
+    imageUrl: [Images.deepika],
   ),
   UserModel(
     images: [],
@@ -124,6 +163,7 @@ List<UserModel> users = [
     likedUserList: [],
     email: null,
     uid: '',
+    imageUrl: [Images.kriti],
   ),
   UserModel(
     images: [],
@@ -142,6 +182,7 @@ List<UserModel> users = [
     likedUserList: [],
     email: null,
     uid: '',
+    imageUrl: [Images.alia],
   ),
   UserModel(
     images: [],
@@ -160,5 +201,6 @@ List<UserModel> users = [
     likedUserList: [],
     email: null,
     uid: '',
+    imageUrl: [Images.madhuri],
   ),
 ];

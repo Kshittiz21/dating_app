@@ -1,6 +1,7 @@
 import 'package:dating_app/common/constants/image_constants.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/user_data.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
 import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,9 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-
 import 'auth_google/google_auth.dart';
-
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({Key? key}) : super(key: key);
@@ -50,8 +49,10 @@ class _SignInContainerState extends State<SignUpContainer> {
         email: _authData['email'].toString(),
         password: _authData['password'].toString(),
       );
-      Provider.of<UserData>(context, listen: false)
-          .updateUserData(_authData['email'], _authData['password']);
+
+      Provider.of<UserModel>(context, listen: false)
+          .updateEmail(_auth.currentUser!.email, _auth.currentUser!.uid);
+
       setState(() {
         _isLoading = false;
       });
@@ -182,9 +183,9 @@ class _SignInContainerState extends State<SignUpContainer> {
                         ? Center(child: CircularProgressIndicator())
                         //: Text('Sign In with Google'),
                         // : CircleAvatar(
-                        //     child: 
-                          :  Image.asset(Images.googleLogo),
-                          //),
+                        //     child:
+                        : Image.asset(Images.googleLogo),
+                    //),
                   ),
                   Text(' Sign Up with Google Instead'),
                 ],

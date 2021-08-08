@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
-import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/domain/entities/user_model.dart';
+import 'package:dating_app/presentation/journeys/details/detail_screen.dart';
+import 'package:dating_app/presentation/journeys/details/feed_screen.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ var userData = UserModel(
   likedUserList: [],
   email: null,
   uid: '',
+  imageUrl: [],
 );
 
 class UpdateProfile extends StatefulWidget {
@@ -73,6 +75,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       // print(userData.gender);
       // print(userData.bio);
       // print(userData.hobbies[0]);
+      List<String> tmp = [];
       for (int i = 0; i < userData.images.length; i++) {
         final ref = FirebaseStorage.instance
             .ref()
@@ -81,31 +84,39 @@ class _UpdateProfileState extends State<UpdateProfile> {
             .child(
                 FirebaseAuth.instance.currentUser!.uid + i.toString() + '.jpg');
         await ref.putFile(userData.images[i]).whenComplete(() => null);
+        final url = await ref.getDownloadURL();
+        tmp.add(url);
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .set({
-        //'images': _userData.images,
+        // 'images': userData.images,
         'name': userData.name,
         'age': userData.age,
         'gender': userData.gender,
         'bio': userData.bio,
         'hobbies': userData.hobbies,
-        'uid': userData.uid,
+        'uid': FirebaseAuth.instance.currentUser?.uid,
+        'email': FirebaseAuth.instance.currentUser?.email,
+        'likedUserList': [],
+        'imageUrl': tmp,
       });
       print("COMPLETED");
+
       CollectionReference _docRef =
           FirebaseFirestore.instance.collection('users');
 
       Map<String, dynamic> m;
-      _docRef.get().then((value) {
-        value.docs.forEach((element) {
-          m = element.data() as Map<String, dynamic>;
-          print(element.data);
-          print(m['hobbies']);
-        });
-      });
+      _docRef.get().then(
+        (value) {
+          value.docs.forEach((element) {
+            m = element.data() as Map<String, dynamic>;
+            print(element.data);
+            print(m['hobbies']);
+          });
+        },
+      );
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 
@@ -128,6 +139,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
         _isLoading = false;
       });
     }
+
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) =>
+    //             FeedScreen(userModel: userData, users: users)));
   }
 
   void _pickImage() async {

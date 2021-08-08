@@ -1,3 +1,4 @@
+import 'package:dating_app/common/constants/image_constants.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/common/screen_util/screen_util.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
@@ -46,7 +47,7 @@ class _DetailScreenState extends State<DetailScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_30.w),
                 child: Image.asset(
-                  "${widget.userModel.images[0]}",
+                  "${Images.kriti}",
                   fit: BoxFit.fill,
                 ),
               ),

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class UserModel extends Equatable with ChangeNotifier {
   late String bio, name, gender;
   late String email;
-  late List<String> images;
+  late List<File> images;
   late List<String> hobbies;
   late int age;
   List<UserModel> likedUserList;
@@ -46,7 +46,7 @@ class UserModel extends Equatable with ChangeNotifier {
 
 List<UserModel> users = [
   UserModel(
-    images: [Images.akshayKumar],
+    images: [],
     name: 'Akshay Kumar',
     gender: 'Male',
     age: 32,
@@ -62,7 +62,7 @@ List<UserModel> users = [
     likedUserList: [],
   ),
   UserModel(
-    images: [Images.shrutiHasan],
+    images: [],
     name: 'Shruti haasan',
     gender: 'Female',
     age: 28,
@@ -78,7 +78,7 @@ List<UserModel> users = [
     likedUserList: [],
   ),
   UserModel(
-    images: [Images.deepika],
+    images: [],
     name: 'Deepika',
     gender: 'Female',
     age: 28,
@@ -94,7 +94,7 @@ List<UserModel> users = [
     likedUserList: [],
   ),
   UserModel(
-    images: [Images.kriti],
+    images: [],
     name: 'Kriti Kharbanda',
     gender: 'Female',
     age: 28,
@@ -110,7 +110,7 @@ List<UserModel> users = [
     likedUserList: [],
   ),
   UserModel(
-    images: [Images.alia],
+    images: [],
     name: 'Alia Bhatt',
     gender: 'Female',
     age: 24,
@@ -126,7 +126,7 @@ List<UserModel> users = [
     likedUserList: [],
   ),
   UserModel(
-    images: [Images.madhuri],
+    images: [],
     name: 'Madhuri Dixit',
     gender: 'Female',
     age: 36,

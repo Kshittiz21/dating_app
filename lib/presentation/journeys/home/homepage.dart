@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 UserModel testUser = UserModel(
-  images: [Images.anushka_sharma],
+  images: [],
   name: 'Anushka Sharma',
   gender: 'Female',
   age: 26,

@@ -23,7 +23,7 @@ class LikedProfileScreen extends StatelessWidget {
             height: Sizes.dimen_40.w,
           ),
           Text(
-            "Mathces",
+            "Matches",
             style: Theme.of(context)
                 .textTheme
                 .headline5

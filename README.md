@@ -1,16 +1,30 @@
-# dating_app
+# Dating App
 
-A new Flutter project.
+- This is a demo dating application which allows user to login and match with people having similar interests.
 
-## Getting Started
+- We have used Firebase for user Authentication and storing User data including images taken using camera/gallery.
 
-This project is a starting point for a Flutter application.
+## Images
 
-A few resources to get you started if this is your first Flutter project:
+#### Login Screen
+<img src="app_images/signIn.jpeg"
+alt="login_screen" width="300"/>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#### Sign Up Screen
+<img src="app_images/signUp.jpeg"
+alt="signup_screen" width="300"/>
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Google+ Authentication
+<img src="app_images/google+.jpeg" alt="Google+ Authentication" width="300"/>
+
+#### Home Screen
+<img src="app_images/home_Page.jpeg" alt="home_screen" width="300"/>
+
+#### Matches
+<img src="app_images/matches.jpeg" alt="matches" width="300"/>
+
+#### Update Profile 1
+<img src="app_images/updateProfile.jpeg" alt="Update Profile 1" width="300"/>
+
+#### Update Profile 2
+<img src="app_images/updateProfile.jpeg" alt="Update Profile 2" width="300"/>

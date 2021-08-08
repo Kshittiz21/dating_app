@@ -34,7 +34,7 @@ class _UserProfileState extends State<UserProfile> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_30.w),
                 child: Image.asset(
-                  "${Images.kriti}",
+                  "${widget.userModel.imageUrl[0]}",
                   fit: BoxFit.fill,
                 ),
               ),

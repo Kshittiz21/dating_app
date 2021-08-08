@@ -24,11 +24,11 @@ class HomePage extends StatefulWidget {
 
 UserModel testUser = UserModel(
   images: [],
-  name: 'Anushka Sharma',
-  gender: 'Female',
-  age: 26,
+  name: 'Mahi Bharadwaj',
+  gender: 'Male',
+  age: 19,
   bio:
-      'Anushka Sharma is an Indian actress and film producer who works in Hindi films. One of the most popular and highest-paid actresses in India, she has received several awards, including a Filmfare Award.',
+      'I am Kshittiz Bharadwaj, also known as Mahi. I love to play cricket and I am a huge fan of Royal Challengers Bangalore. I am very derterministic as I constantly support RCB although it always losses.',
   hobbies: [
     'drwaing',
     'Music',
@@ -39,6 +39,7 @@ UserModel testUser = UserModel(
   likedUserList: [],
   email: null,
   uid: '',
+  imageUrl: ['assets/images/mahi.jpeg'],
 );
 
 List<Widget> screenList = [

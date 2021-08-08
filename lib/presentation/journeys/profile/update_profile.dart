@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UpdateProfile extends StatefulWidget {
   static const routeName = '/update-profile';
@@ -67,17 +68,28 @@ class _UpdateProfileState extends State<UpdateProfile> {
       print(_userData.age);
       print(_userData.gender);
       print(_userData.bio);
+      print(_userData.hobbies[0]);
+      for (int i = 0; i < _userData.images.length; i++) {
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('user_image')
+            .child(FirebaseAuth.instance.currentUser!.uid)
+            .child(
+                FirebaseAuth.instance.currentUser!.uid + i.toString() + '.jpg');
+        await ref.putFile(_userData.images[i]).whenComplete(() => null);
+      }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .set({
-        'images': _userData.images,
-        'name' : _userData.name,
-        'age' : _userData.age,
-        'gender' : _userData.gender,
-        'bio' : _userData.bio,
-        'hobbies' : _userData.hobbies,
+        //'images': _userData.images,
+        'name': _userData.name,
+        'age': _userData.age,
+        'gender': _userData.gender,
+        'bio': _userData.bio,
+        'hobbies': _userData.hobbies,
       });
+      print("COMPLETED");
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 

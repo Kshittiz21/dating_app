@@ -1,84 +1,74 @@
+import 'package:dating_app/common/constants/image_constants.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/common/screen_util/screen_util.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
 import 'package:dating_app/presentation/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatelessWidget {
-  DetailScreen({Key? key}) : super(key: key);
+class DetailScreen extends StatefulWidget {
+  final UserModel userModel;
+  final bool isFavourite;
+  final void Function(
+      UserModel userProfile, BuildContext context, bool isFavourite) onTap;
+  DetailScreen(
+      {Key? key,
+      required this.userModel,
+      required this.onTap,
+      required this.isFavourite})
+      : super(key: key);
 
-  final List<String> testList = [
-    'Hockey',
-    'music',
-    'movie',
-    'cricket',
-    'carrom',
-    'dancee'
-  ];
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  late bool isFavourite;
+
+  @override
+  void initState() {
+    isFavourite = widget.isFavourite;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
-    return
-        // Scaffold(
-        //   body:
-        SingleChildScrollView(
+    return SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
             Container(
               height: Sizes.dimen_350.w,
+              width: Sizes.dimen_360.w,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Sizes.dimen_30.w),
                 child: Image.asset(
-                  "assets/images/anushka_sharma.jpg",
+                  "${Images.kriti}",
                   fit: BoxFit.fill,
                 ),
               ),
             ),
             Positioned(
               top: Sizes.dimen_300.w,
+              left: Sizes.dimen_140.w,
               child: Container(
-                width: Sizes.dimen_360.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CustomIcon(
-                      backGroundColor: Colors.white,
-                      iconColor: Colors.red.shade300,
-                      iconSize: Sizes.dimen_40.w,
-                      iconData: Icons.close,
-                      onTap: () {},
-                    ),
-                    CustomIcon(
-                      backGroundColor: Color(0xffF858A4),
-                      iconColor: Colors.white,
-                      iconSize: Sizes.dimen_60.w,
-                      iconData: Icons.favorite,
-                      onTap: () {},
-                    ),
-                    CustomIcon(
-                      backGroundColor: Colors.white,
-                      iconColor: Colors.purple.shade300,
-                      iconSize: Sizes.dimen_40.w,
-                      iconData: Icons.star,
-                      onTap: () {},
-                    ),
-                  ],
+                child: CustomIcon(
+                  backGroundColor:
+                      isFavourite ? Colors.white : Color(0xffF858A4),
+                  iconColor: isFavourite ? Color(0xffF858A4) : Colors.white,
+                  iconSize: Sizes.dimen_60.w,
+                  iconData: Icons.favorite,
+                  onTap: () {
+                    setState(() {
+                      isFavourite = !isFavourite;
+                    });
+                    widget.onTap(widget.userModel, context, isFavourite);
+                  },
                 ),
-              ),
-            ),
-            Positioned(
-              top: Sizes.dimen_40.w,
-              left: Sizes.dimen_30.w,
-              child: CustomIcon(
-                backGroundColor: Colors.white30,
-                iconColor: Colors.white,
-                iconSize: Sizes.dimen_30.w,
-                iconData: Icons.chevron_left,
-                onTap: () {},
               ),
             ),
             Positioned(
@@ -89,11 +79,11 @@ class DetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Anushka Sharma, 24",
+                      "${widget.userModel.name}, ${widget.userModel.age}",
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Text(
-                      "Actress",
+                      "${widget.userModel.gender}",
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -109,7 +99,7 @@ class DetailScreen extends StatelessWidget {
                     Container(
                       width: Sizes.dimen_300.w,
                       child: Text(
-                        "Anushka Sharma is an Indian actress and film producer who works in Hindi films. One of the most popular and highest-paid actresses in India, she has received several awards, including a Filmfare Award.",
+                        "${widget.userModel.bio}",
                         maxLines: 5,
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -126,7 +116,9 @@ class DetailScreen extends StatelessWidget {
                       child: Wrap(
                         spacing: Sizes.dimen_10.w,
                         children: [
-                          for (int i = 0; i < testList.length; i++)
+                          for (int i = 0;
+                              i < widget.userModel.hobbies.length;
+                              i++)
                             Container(
                               margin: EdgeInsets.symmetric(
                                   vertical: Sizes.dimen_4.w),
@@ -142,7 +134,7 @@ class DetailScreen extends StatelessWidget {
                                       color:
                                           AppColors.mediumAppColorList[i % 3])),
                               child: Text(
-                                testList[i],
+                                widget.userModel.hobbies[i],
                               ),
                             ),
                         ],
@@ -155,7 +147,6 @@ class DetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      // ),
     );
   }
 }

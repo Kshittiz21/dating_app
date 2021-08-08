@@ -3,13 +3,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/user_data.dart';
-import 'package:dating_app/presentation/journeys/profile/user_model.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
+var userData = UserModel(
+  images: [],
+  name: '',
+  gender: '',
+  age: 18,
+  bio: '',
+  hobbies: [],
+  likedUserList: [],
+);
 
 class UpdateProfile extends StatefulWidget {
   static const routeName = '/update-profile';
@@ -25,16 +35,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
   TextEditingController controller = TextEditingController();
   bool _isLoading = false;
   late File _pickedImage;
-  var _userData = UserModel(
-    images: [],
-    name: '',
-    gender: '',
-    age: 18,
-    bio: '',
-    hobbies: [],
-  );
 
-  void _saveForm() async {
+void _saveForm() async {
     if (!_formKey.currentState!.validate()) {
       // INVALID
       setState(() {
@@ -123,8 +125,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
     setState(() {
       _pickedImage = File(pickedImageFile!.path);
     });
-    _userData.images.add(_pickedImage);
-    print(_userData.images.length);
+    userData.images.add(_pickedImage);
+    print(userData.images.length);
   }
 
   @override

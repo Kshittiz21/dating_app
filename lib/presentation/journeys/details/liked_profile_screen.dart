@@ -1,54 +1,19 @@
 import 'package:dating_app/common/constants/size_constants.dart';
-import 'package:dating_app/common/screen_util/screen_util.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/journeys/details/profile_card.dart';
+import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 
 class LikedProfileScreen extends StatelessWidget {
-  LikedProfileScreen({Key? key}) : super(key: key);
-  final List<TestData> testData = [
-    TestData(
-      name: "Anushka Sharma",
-      age: "24",
-      occupation: "Actress",
-      imagePath: "",
-      about: "xyz",
-      intrest: ["cricket", "movies"],
-    ),
-    TestData(
-      name: "Anushka Sharma",
-      age: "24",
-      occupation: "Actress",
-      imagePath: "",
-      about: "xyz",
-      intrest: ["cricket", "movies"],
-    ),
-    TestData(
-      name: "Anushka Sharma",
-      age: "24",
-      occupation: "Actress",
-      imagePath: "",
-      about: "xyz",
-      intrest: ["cricket", "movies"],
-    ),
-    TestData(
-      name: "Anushka Sharma",
-      age: "24",
-      occupation: "Actress",
-      imagePath: "",
-      about: "xyz",
-      intrest: ["cricket", "movies"],
-    ),
-  ];
+  final UserModel userProfile;
+  const LikedProfileScreen({Key? key, required this.userProfile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init();
-    return
-        // Scaffold(
-        //   body:
-        Container(
+    return Container(
       padding: EdgeInsets.symmetric(
           horizontal: Sizes.dimen_30.w, vertical: Sizes.dimen_10.w),
       child: Column(
@@ -70,7 +35,7 @@ class LikedProfileScreen extends StatelessWidget {
           ),
           GridView.builder(
             shrinkWrap: true,
-            itemCount: testData.length,
+            itemCount: userProfile.likedUserList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: Sizes.dimen_16.w,
@@ -79,13 +44,12 @@ class LikedProfileScreen extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return ProfileCard(
-                profile: testData[index],
+                profile: userProfile.likedUserList[index],
               );
             },
           ),
         ],
       ),
-      // ),
     );
   }
 }

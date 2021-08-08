@@ -1,12 +1,18 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/widgets/custom_icon.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 
 class ProfileCard extends StatelessWidget {
-  final TestData profile;
-  const ProfileCard({Key? key, required this.profile}) : super(key: key);
+  final UserModel profile;
+
+  const ProfileCard({
+    Key? key,
+    required this.profile,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +32,13 @@ class ProfileCard extends StatelessWidget {
             ),
           ),
           Positioned(
-              // right: Sizes.dimen_12,
               bottom: 26,
               child: Container(
+                  width: Sizes.dimen_150.w,
                   color: Colors.white70,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Sizes.dimen_14, vertical: Sizes.dimen_2),
                     child: Row(
                       children: [
                         Text(
@@ -43,6 +50,7 @@ class ProfileCard extends StatelessWidget {
                               ?.copyWith(
                                   fontSize: 12, fontWeight: FontWeight.w600),
                         ),
+                        Spacer(),
                         CustomIcon(
                           backGroundColor: Colors.white10,
                           iconColor: Colors.red,
@@ -52,19 +60,7 @@ class ProfileCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ))
-
-              // InkWell(
-              //   onTap: () {
-              //     // BlocProvider.of<FavouriteMovieBloc>(context)
-              //     //     .add(DeleteFavouriteMovieEvent(movieId: movieEntity.id));
-              //   },
-              //   child: Icon(
-              //     Icons.delete,
-              //     color: Colors.white,
-              //   ),
-              // )
-              ),
+                  ))),
         ],
       ),
     );

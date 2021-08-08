@@ -1,14 +1,33 @@
 import 'dart:io';
 
+import 'package:dating_app/common/constants/image_constants.dart';
+import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class UserModel with ChangeNotifier {
+class UserModel extends Equatable with ChangeNotifier {
   late String bio, name, gender;
   late String email;
   late List<File> images;
   late List<String> hobbies;
   late int age;
-  late List<UserModel> likedUserList;
+  List<UserModel> likedUserList;
+
+  void addLikedUser(UserModel userModel) {
+    if (!likedUserList.contains(userModel)) likedUserList.add(userModel);
+    print(likedUserList.length);
+    notifyListeners();
+  }
+
+  bool isFavourtie(UserModel userModel) {
+    return likedUserList.contains(userModel);
+  }
+
+  void removeLikedUser(UserModel userModel) {
+    likedUserList.remove(userModel);
+    print(likedUserList.length);
+    notifyListeners();
+  }
 
   UserModel({
     required this.images,
@@ -17,7 +36,12 @@ class UserModel with ChangeNotifier {
     required this.age,
     required this.bio,
     required this.hobbies,
+    required this.likedUserList,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [name];
 }
 
 List<UserModel> users = [
@@ -35,6 +59,7 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
     images: [],
@@ -50,6 +75,7 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
     images: [],
@@ -65,6 +91,7 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
     images: [],
@@ -80,6 +107,7 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
     images: [],
@@ -95,6 +123,7 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
   UserModel(
     images: [],
@@ -110,5 +139,6 @@ List<UserModel> users = [
       'Dancing',
       'Sports',
     ],
+    likedUserList: [],
   ),
 ];

@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/presentation/journeys/profile/user_model.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,20 +33,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
     hobbies: [],
   );
 
-  void _saveForm() {
-    if (!_formKey.currentState!.validate() )
-    {
+  void _saveForm() async {
+    if (!_formKey.currentState!.validate()) {
       // INVALID
       setState(() {
         _isLoading = false;
       });
       print("INVALID");
       if (_userData.images.length < 2) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Select at Least 2 images'),
-        backgroundColor: Theme.of(context).errorColor,
-      ));
-    }
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Select at Least 2 images'),
+          backgroundColor: Theme.of(context).errorColor,
+        ));
+      }
       return;
     }
     if (_userData.images.length < 2) {
@@ -59,13 +60,24 @@ class _UpdateProfileState extends State<UpdateProfile> {
       print("INVALID");
       return;
     }
-    try{
-    _formKey.currentState!.save();
-    
-    print(_userData.name);
-    print(_userData.age);
-    print(_userData.gender);
-    print(_userData.bio);
+    try {
+      _formKey.currentState!.save();
+
+      print(_userData.name);
+      print(_userData.age);
+      print(_userData.gender);
+      print(_userData.bio);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        'images': _userData.images,
+        'name' : _userData.name,
+        'age' : _userData.age,
+        'gender' : _userData.gender,
+        'bio' : _userData.bio,
+        'hobbies' : _userData.hobbies,
+      });
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 
@@ -186,7 +198,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 //textInputAction: TextInputAction.next,
                 textCapitalization: TextCapitalization.sentences,
                 validator: (value) {
-                  if (value!.length < 30 ) {
+                  if (value!.length < 30) {
                     return 'Bio should be at least 30 characters long';
                   }
                   return null;
@@ -208,7 +220,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 },
               ),
               Padding(
-                padding:  EdgeInsets.symmetric(vertical: Sizes.dimen_6.w),
+                padding: EdgeInsets.symmetric(vertical: Sizes.dimen_6.w),
                 child: Container(
                   height: Sizes.dimen_60,
                   child: ListView.builder(

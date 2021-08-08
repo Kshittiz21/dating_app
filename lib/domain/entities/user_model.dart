@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class UserModel extends Equatable with ChangeNotifier {
   late String bio, name, gender;
-  late String email;
+  late String? email;
   late List<File> images;
   late List<String> hobbies;
   late int age;
@@ -29,6 +29,11 @@ class UserModel extends Equatable with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateEmail(String? email) {
+    this.email = email;
+    notifyListeners();
+  }
+
   UserModel({
     required this.images,
     required this.name,
@@ -37,11 +42,11 @@ class UserModel extends Equatable with ChangeNotifier {
     required this.bio,
     required this.hobbies,
     required this.likedUserList,
+    required this.email,
   });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [name];
+  List<Object?> get props => [email];
 }
 
 List<UserModel> users = [
@@ -60,6 +65,7 @@ List<UserModel> users = [
       'Sports',
     ],
     likedUserList: [],
+    email: null,
   ),
   UserModel(
     images: [],
@@ -76,6 +82,7 @@ List<UserModel> users = [
       'Sports',
     ],
     likedUserList: [],
+    email: null,
   ),
   UserModel(
     images: [],
@@ -92,6 +99,7 @@ List<UserModel> users = [
       'Sports',
     ],
     likedUserList: [],
+    email: null,
   ),
   UserModel(
     images: [],
@@ -108,6 +116,7 @@ List<UserModel> users = [
       'Sports',
     ],
     likedUserList: [],
+    email: null,
   ),
   UserModel(
     images: [],
@@ -124,6 +133,7 @@ List<UserModel> users = [
       'Sports',
     ],
     likedUserList: [],
+    email: null,
   ),
   UserModel(
     images: [],
@@ -140,5 +150,6 @@ List<UserModel> users = [
       'Sports',
     ],
     likedUserList: [],
+    email: null,
   ),
 ];

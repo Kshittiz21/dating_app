@@ -1,9 +1,11 @@
 import 'package:dating_app/common/constants/size_constants.dart';
+import 'package:dating_app/domain/entities/user_data.dart';
 import 'package:dating_app/presentation/journeys/auth/validators.dart';
 import 'package:dating_app/presentation/journeys/home/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({Key? key}) : super(key: key);
@@ -41,6 +43,8 @@ class _SignInContainerState extends State<SignUpContainer> {
         email: _authData['email'].toString(),
         password: _authData['password'].toString(),
       );
+      Provider.of<UserData>(context, listen: false)
+          .updateUserData(_authData['email'], _authData['password']);
       setState(() {
         _isLoading = false;
       });

@@ -19,6 +19,7 @@ var userData = UserModel(
   bio: '',
   hobbies: [],
   likedUserList: [],
+  email: null,
 );
 
 class UpdateProfile extends StatefulWidget {

@@ -20,6 +20,7 @@ var userData = UserModel(
   hobbies: [],
   likedUserList: [],
   email: null,
+  uid: '',
 );
 
 class UpdateProfile extends StatefulWidget {
@@ -91,6 +92,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         'gender': userData.gender,
         'bio': userData.bio,
         'hobbies': userData.hobbies,
+        'uid': userData.uid,
       });
       print("COMPLETED");
       CollectionReference _docRef =

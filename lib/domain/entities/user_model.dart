@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 class UserModel extends Equatable with ChangeNotifier {
   late String bio, name, gender;
   late String? email;
+  late String uid;
   late List<File> images;
   late List<String> hobbies;
   late int age;
@@ -29,8 +30,9 @@ class UserModel extends Equatable with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateEmail(String? email) {
+  void updateEmail(String? email, String uid) {
     this.email = email;
+    this.uid = uid;
     notifyListeners();
   }
 
@@ -43,6 +45,7 @@ class UserModel extends Equatable with ChangeNotifier {
     required this.hobbies,
     required this.likedUserList,
     required this.email,
+    required this.uid,
   });
 
   @override
@@ -66,6 +69,7 @@ List<UserModel> users = [
     ],
     likedUserList: [],
     email: null,
+    uid: '',
   ),
   UserModel(
     images: [],
@@ -83,6 +87,7 @@ List<UserModel> users = [
     ],
     likedUserList: [],
     email: null,
+    uid: '',
   ),
   UserModel(
     images: [],
@@ -100,6 +105,7 @@ List<UserModel> users = [
     ],
     likedUserList: [],
     email: null,
+    uid: '',
   ),
   UserModel(
     images: [],
@@ -117,6 +123,7 @@ List<UserModel> users = [
     ],
     likedUserList: [],
     email: null,
+    uid: '',
   ),
   UserModel(
     images: [],
@@ -134,6 +141,7 @@ List<UserModel> users = [
     ],
     likedUserList: [],
     email: null,
+    uid: '',
   ),
   UserModel(
     images: [],
@@ -151,5 +159,6 @@ List<UserModel> users = [
     ],
     likedUserList: [],
     email: null,
+    uid: '',
   ),
 ];

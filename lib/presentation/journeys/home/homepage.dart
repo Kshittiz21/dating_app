@@ -6,6 +6,7 @@ import 'package:dating_app/presentation/journeys/details/detail_screen.dart';
 import 'package:dating_app/presentation/journeys/details/feed_screen.dart';
 import 'package:dating_app/presentation/journeys/details/liked_profile_screen.dart';
 import 'package:dating_app/presentation/journeys/profile/update_profile.dart';
+import 'package:dating_app/presentation/journeys/user_profile/user_profile.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,13 +38,14 @@ UserModel testUser = UserModel(
   ],
   likedUserList: [],
   email: null,
+  uid: '',
 );
 
 List<Widget> screenList = [
   FeedScreen(userModel: testUser, users: users),
   LikedProfileScreen(userProfile: testUser),
   UpdateProfile(),
-  LogOut(),
+  UserProfile(userModel: testUser),
 ];
 
 class _HomePageState extends State<HomePage> {

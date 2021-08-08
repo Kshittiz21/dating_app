@@ -10,6 +10,10 @@ class UserModel with ChangeNotifier {
   late int age;
   late List<UserModel> likedUserList;
 
+  void addLikedUser(UserModel userModel) {
+    likedUserList.add(userModel);
+  }
+
   UserModel({
     required this.images,
     required this.name,
@@ -17,6 +21,7 @@ class UserModel with ChangeNotifier {
     required this.age,
     required this.bio,
     required this.hobbies,
+    this.likedUserList = const [],
   });
 }
 

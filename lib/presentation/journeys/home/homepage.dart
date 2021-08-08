@@ -1,6 +1,8 @@
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/journeys/auth/auth_google/google_auth.dart';
 import 'package:dating_app/presentation/journeys/auth/logout.dart';
 import 'package:dating_app/presentation/journeys/details/detail_screen.dart';
+import 'package:dating_app/presentation/journeys/details/feed_screen.dart';
 import 'package:dating_app/presentation/journeys/details/liked_profile_screen.dart';
 import 'package:dating_app/presentation/journeys/profile/update_profile.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
@@ -16,9 +18,26 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+UserModel testUser = UserModel(
+  images: [],
+  name: 'Akshay Kumar',
+  gender: 'Male',
+  age: 32,
+  bio:
+      'Rajiv Hari Om Bhatia, known professionally as Akshay Kumar, is an Indian-born naturalised Canadian actor, film producer, martial artist and television personality who works in Bollywood, the commercial Hindi language film industry based chiefly in Mumbai.',
+  hobbies: [
+    'drwaing',
+    'Music',
+    'Reading',
+    'Dancing',
+    'Sports',
+  ],
+  likedUserList: users,
+);
+
 List<Widget> screenList = [
-  DetailScreen(),
-  LikedProfileScreen(),
+  FeedScreen(userModel: testUser, users: users),
+  LikedProfileScreen(userProfile: testUser),
   UpdateProfile(),
   LogOut(),
 ];

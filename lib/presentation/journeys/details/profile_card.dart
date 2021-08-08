@@ -1,11 +1,12 @@
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
 
 class ProfileCard extends StatelessWidget {
-  final TestData profile;
+  final UserModel profile;
   const ProfileCard({Key? key, required this.profile}) : super(key: key);
 
   @override

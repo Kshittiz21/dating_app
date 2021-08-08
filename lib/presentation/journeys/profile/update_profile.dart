@@ -2,9 +2,18 @@ import 'dart:io';
 
 import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/domain/entities/user_data.dart';
-import 'package:dating_app/presentation/journeys/profile/user_model.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+var userData = UserModel(
+  images: [],
+  name: '',
+  gender: '',
+  age: 18,
+  bio: '',
+  hobbies: [],
+);
 
 class UpdateProfile extends StatefulWidget {
   static const routeName = '/update-profile';
@@ -20,17 +29,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
   TextEditingController controller = TextEditingController();
   bool _isLoading = false;
   late File _pickedImage;
-  var _userData = UserModel(
-    images: [],
-    name: '',
-    gender: '',
-    age: 18,
-    bio: '',
-    hobbies: [],
-  );
 
   void _saveForm() {
-    if (!_formKey.currentState!.validate() || _userData.images.length < 2) {
+    if (!_formKey.currentState!.validate() || userData.images.length < 2) {
       // INVALID
       setState(() {
         _isLoading = false;
@@ -43,10 +44,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
     // _userData.age = int.parse(initData['age']);
     // _userData.gender = initData['gender'].toString();
     // _userData.bio = initData['bio'].toString();
-    print(_userData.name);
-    print(_userData.age);
-    print(_userData.gender);
-    print(_userData.bio);
+    print(userData.name);
+    print(userData.age);
+    print(userData.gender);
+    print(userData.bio);
   }
 
   void _pickImage() async {
@@ -58,8 +59,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
     setState(() {
       _pickedImage = File(pickedImageFile!.path);
     });
-    _userData.images.add(_pickedImage);
-    print(_userData.images.length);
+    userData.images.add(_pickedImage);
+    print(userData.images.length);
   }
 
   @override
@@ -74,12 +75,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
               height: Sizes.dimen_60,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: _userData.images.length,
+                  itemCount: userData.images.length,
                   itemBuilder: (context, idx) {
                     return CircleAvatar(
                       backgroundColor: Colors.grey,
                       radius: 40,
-                      backgroundImage: FileImage(_userData.images[idx]),
+                      backgroundImage: FileImage(userData.images[idx]),
                     );
                   }),
             ),
@@ -102,7 +103,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 return null;
               },
               onSaved: (value) {
-                _userData.name = value!;
+                userData.name = value!;
               },
             ),
             TextFormField(
@@ -117,7 +118,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               },
               onSaved: (value) {
                 int temp = int.parse(value!);
-                _userData.age = temp;
+                userData.age = temp;
               },
             ),
             TextFormField(
@@ -130,7 +131,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 return null;
               },
               onSaved: (value) {
-                _userData.gender = value!;
+                userData.gender = value!;
               },
             ),
             TextFormField(
@@ -144,7 +145,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               },
               onSaved: (value) {
                 print(value);
-                _userData.bio = value!;
+                userData.bio = value!;
               },
             ),
             TextField(
@@ -152,7 +153,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               textInputAction: TextInputAction.next,
               controller: controller,
               onSubmitted: (value) {
-                _userData.hobbies.add(value);
+                userData.hobbies.add(value);
                 controller.clear();
               },
             ),
@@ -169,10 +170,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
               height: Sizes.dimen_60,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: _userData.hobbies.length,
+                  itemCount: userData.hobbies.length,
                   itemBuilder: (context, idx) {
                     return Card(
-                      child: Text(_userData.hobbies[idx]),
+                      child: Text(userData.hobbies[idx]),
                     );
                   }),
             ),

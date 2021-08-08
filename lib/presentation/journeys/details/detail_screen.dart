@@ -2,28 +2,18 @@ import 'package:dating_app/common/constants/size_constants.dart';
 import 'package:dating_app/common/screen_util/screen_util.dart';
 import 'package:dating_app/domain/entities/test_data.dart';
 import 'package:dating_app/common/extensions/size_extensions.dart';
+import 'package:dating_app/domain/entities/user_model.dart';
 import 'package:dating_app/presentation/themes/app_colors.dart';
 import 'package:dating_app/presentation/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatelessWidget {
-  DetailScreen({Key? key}) : super(key: key);
-
-  final List<String> testList = [
-    'Hockey',
-    'music',
-    'movie',
-    'cricket',
-    'carrom',
-    'dancee'
-  ];
+  final UserModel userModel;
+  DetailScreen({Key? key, required this.userModel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
-    return
-        // Scaffold(
-        //   body:
-        SingleChildScrollView(
+    return SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -40,45 +30,15 @@ class DetailScreen extends StatelessWidget {
             ),
             Positioned(
               top: Sizes.dimen_300.w,
+              left: Sizes.dimen_140.w,
               child: Container(
-                width: Sizes.dimen_360.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CustomIcon(
-                      backGroundColor: Colors.white,
-                      iconColor: Colors.red.shade300,
-                      iconSize: Sizes.dimen_40.w,
-                      iconData: Icons.close,
-                      onTap: () {},
-                    ),
-                    CustomIcon(
-                      backGroundColor: Color(0xffF858A4),
-                      iconColor: Colors.white,
-                      iconSize: Sizes.dimen_60.w,
-                      iconData: Icons.favorite,
-                      onTap: () {},
-                    ),
-                    CustomIcon(
-                      backGroundColor: Colors.white,
-                      iconColor: Colors.purple.shade300,
-                      iconSize: Sizes.dimen_40.w,
-                      iconData: Icons.star,
-                      onTap: () {},
-                    ),
-                  ],
+                child: CustomIcon(
+                  backGroundColor: Color(0xffF858A4),
+                  iconColor: Colors.white,
+                  iconSize: Sizes.dimen_60.w,
+                  iconData: Icons.favorite,
+                  onTap: () {},
                 ),
-              ),
-            ),
-            Positioned(
-              top: Sizes.dimen_40.w,
-              left: Sizes.dimen_30.w,
-              child: CustomIcon(
-                backGroundColor: Colors.white30,
-                iconColor: Colors.white,
-                iconSize: Sizes.dimen_30.w,
-                iconData: Icons.chevron_left,
-                onTap: () {},
               ),
             ),
             Positioned(
@@ -89,11 +49,11 @@ class DetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Anushka Sharma, 24",
+                      "${userModel.name}, ${userModel.age}",
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Text(
-                      "Actress",
+                      "${userModel.gender}",
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -109,7 +69,7 @@ class DetailScreen extends StatelessWidget {
                     Container(
                       width: Sizes.dimen_300.w,
                       child: Text(
-                        "Anushka Sharma is an Indian actress and film producer who works in Hindi films. One of the most popular and highest-paid actresses in India, she has received several awards, including a Filmfare Award.",
+                        "${userModel.bio}",
                         maxLines: 5,
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
@@ -126,7 +86,7 @@ class DetailScreen extends StatelessWidget {
                       child: Wrap(
                         spacing: Sizes.dimen_10.w,
                         children: [
-                          for (int i = 0; i < testList.length; i++)
+                          for (int i = 0; i < userModel.hobbies.length; i++)
                             Container(
                               margin: EdgeInsets.symmetric(
                                   vertical: Sizes.dimen_4.w),
@@ -142,7 +102,7 @@ class DetailScreen extends StatelessWidget {
                                       color:
                                           AppColors.mediumAppColorList[i % 3])),
                               child: Text(
-                                testList[i],
+                                userModel.hobbies[i],
                               ),
                             ),
                         ],
@@ -155,7 +115,6 @@ class DetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      // ),
     );
   }
 }

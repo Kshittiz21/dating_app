@@ -49,7 +49,10 @@ class _SignInContainerState extends State<SignInContainer> {
       );
       String? email = userCredential.user?.email;
       String? displayName = userCredential.user?.displayName;
-      Provider.of<UserModel>(context, listen: false).updateEmail(email);
+      Provider.of<UserModel>(context, listen: false).updateEmail(
+        email,
+        userCredential.user!.uid,
+      );
 
       setState(() {
         _isLoading = false;

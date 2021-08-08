@@ -10,6 +10,7 @@ class GoogleAuth with ChangeNotifier {
   GoogleSignInAccount? googleSignInAccount;
   String? email;
   String? displayName;
+  late String uid;
 
   void login(BuildContext context) async {
     // googleSignInAccount = await _googleAuth.signIn();
@@ -33,14 +34,14 @@ class GoogleAuth with ChangeNotifier {
     email = user.email;
     print(user.displayName);
     print(user.email);
-    user.uid;
+    uid = user.uid;
     print(user.emailVerified);
 
-    Provider.of<UserModel>(context, listen: false).updateEmail(email);
+    Provider.of<UserModel>(context, listen: false).updateEmail(email, uid);
   }
 
   void logout(BuildContext context) async {
     googleSignInAccount = await _googleAuth.signOut();
-    Provider.of<UserModel>(context, listen: false).updateEmail(null);
+    Provider.of<UserModel>(context, listen: false).updateEmail(null, '');
   }
 }

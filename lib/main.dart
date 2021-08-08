@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
             hobbies: [],
             likedUserList: [],
             email: null,
+            uid: '',
           ),
         ),
       ],

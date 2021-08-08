@@ -67,11 +67,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
     try {
       _formKey.currentState!.save();
 
-      print(userData.name);
-      print(userData.age);
-      print(userData.gender);
-      print(userData.bio);
-      print(userData.hobbies[0]);
+      // print(userData.name);
+      // print(userData.age);
+      // print(userData.gender);
+      // print(userData.bio);
+      // print(userData.hobbies[0]);
       for (int i = 0; i < userData.images.length; i++) {
         final ref = FirebaseStorage.instance
             .ref()
@@ -93,6 +93,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
         'hobbies': userData.hobbies,
       });
       print("COMPLETED");
+      CollectionReference _docRef =
+          FirebaseFirestore.instance.collection('users');
+
+      Map<String, dynamic> m;
+      _docRef.get().then((value) {
+        value.docs.forEach((element) {
+          m = element.data() as Map<String, dynamic>;
+          print(element.data);
+          print(m['hobbies']);
+        });
+      });
     } on PlatformException catch (err) {
       var message = 'An error occured, please check your credentials!';
 
@@ -135,23 +146,23 @@ class _UpdateProfileState extends State<UpdateProfile> {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Sizes.dimen_12,
-          vertical: Sizes.dimen_16,
+        padding: EdgeInsets.symmetric(
+          horizontal: Sizes.dimen_12.w,
+          vertical: Sizes.dimen_16.w,
         ),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               Container(
-                height: Sizes.dimen_60,
+                height: Sizes.dimen_60.w,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: userData.images.length,
                     itemBuilder: (context, idx) {
                       return CircleAvatar(
                         backgroundColor: Colors.grey,
-                        radius: 40,
+                        radius: Sizes.dimen_40.w,
                         backgroundImage: FileImage(userData.images[idx]),
                       );
                     }),
@@ -160,7 +171,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 onPressed: _pickImage,
                 child: Text('Add Image'),
                 style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(Size(20, 20)),
+                  fixedSize: MaterialStateProperty.all(Size(
+                    Sizes.dimen_20.w,
+                    Sizes.dimen_20.w,
+                  )),
                   // backgroundColor:
                   //     MaterialStateProperty.all(Colors.orange.shade400),
                 ),
@@ -213,8 +227,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 //textInputAction: TextInputAction.next,
                 textCapitalization: TextCapitalization.sentences,
                 validator: (value) {
-                  if (value!.length < 30) {
-                    return 'Bio should be at least 30 characters long';
+                  if (value!.length < 20) {
+                    return 'Bio should be at least 20 characters long';
                   }
                   return null;
                 },
@@ -237,7 +251,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: Sizes.dimen_6.w),
                 child: Container(
-                  height: Sizes.dimen_60,
+                  height: Sizes.dimen_60.w,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: userData.hobbies.length,
@@ -275,12 +289,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   width: deviceSize.width * 0.7,
                   height: deviceSize.height * 0.07,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(Sizes.dimen_10),
+                    borderRadius: BorderRadius.circular(Sizes.dimen_10.w),
                     child: ElevatedButton(
                       onPressed: _isLoading ? null : () => _saveForm(),
                       child: _isLoading
                           ? Center(child: CircularProgressIndicator())
-                          : Text('Sign Up'),
+                          : Text('Submit'),
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.orange.shade400),
